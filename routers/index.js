@@ -1,14 +1,12 @@
 import express from 'express';
 import homePageController from "../controllers/home-pageController.js"
-import login from './login.js';
-import register from './register.js';
+import userRouter from "./users.js"
 
 const router = express.Router();
 
 router.get("/", homePageController.homePage)
 
+router.use('/user/', userRouter);
 
-router.use(login);
-router.use(register);
 
 export default router;
