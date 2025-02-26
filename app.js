@@ -1,15 +1,17 @@
 import path from "path";
 import express from 'express';
-import {fileURLToPath} from 'url';
-import {dirname} from 'path';
 import dotenv from 'dotenv';
-
 import mongoose from 'mongoose';
 
 dotenv.config();
 
 
 import router from "./routers/index.js"
+
+const publicPath = path.resolve('public')
+
+const viewsPath = path.resolve('views');
+
 
 const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI)
@@ -20,8 +22,6 @@ mongoose.connect(mongoURI)
         console.error('Error connecting to MongoDB:', error);
     });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const app = express()
 app.use(express.urlencoded({extended: false}));
@@ -29,13 +29,12 @@ app.use(express.urlencoded({extended: false}));
 
 const PORT = process.env.PORT
 
-
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(publicPath));
 
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, 'views'));
+app.set("views", viewsPath);
 
 
 app.use(router)
