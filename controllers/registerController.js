@@ -1,4 +1,4 @@
-// import fs from "fs/promises";
+
 import User from "../models/users.js";
 
 const title = "Register";

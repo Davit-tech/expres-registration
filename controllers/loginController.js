@@ -1,11 +1,11 @@
-// import fs from "fs/promises";
 import User from "../models/users.js";
+
 const title = "login"
 
 export default {
 
     login: (req, res) => {
-        res.render("login", { title, page: "login"})
+        res.render("login", {title, page: "login"})
     },
     postLogin: async (req, res) => {
         const {email, password} = req.body;
@@ -23,15 +23,16 @@ export default {
             res.json({
                 success: true,
                 message: "Login successful",
-                username: user.username
+                username: user.username,
+                id:user.id
             });
 
         } catch (error) {
-res.status(500).json({
-    success: false,
-    message: error.message,
-    messageType: "error"
-})
+            res.status(500).json({
+                success: false,
+                message: error.message,
+                messageType: "error"
+            })
         }
 
     }

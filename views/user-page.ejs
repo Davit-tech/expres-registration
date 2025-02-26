@@ -1,17 +1,18 @@
-<!doctype html>
-<html lang="en">
-<%- include("./partials/head.ejs") %>
-<body>
-<div class="container">
-    <h1 id="welcome-message"></h1>
-    <a class="link" href="/">Log out</a>
-</div>
-<script>
+    <!doctype html>
+    <html lang="en">
+    <%- include("./partials/head.ejs") %>
+    <body>
+    <div class="container">
+        <h1 id="welcome-message"></h1>
+        <a class="link" href="#">Log out</a>
+    </div>
 
-    const username = localStorage.getItem("username") || "Гость";
-    document.getElementById("welcome-message").innerText = `Welcome, ${username}!`;
-
-
-</script>
-</body>
-</html>
+    </body>
+    <% if (page === "register") { %>
+        <script src="/js/register.js"></script>
+    <% } else if (page === "login") { %>
+        <script src="/js/login.js"></script>
+    <% }  else if (page === "user-page") { %>
+        <script src="/js/user-page.js"></script>
+    <% } %>
+    </html>

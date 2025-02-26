@@ -4,10 +4,7 @@ if (loginForm) {
         event.preventDefault();
 
         const formData = new FormData(this)
-        const data = {}
-        formData.forEach((value, key) => {
-            data[key] = value;
-        })
+        const data = Object.fromEntries(formData.entries());
 
         try {
             const response = await fetch("/user/login", {
@@ -23,11 +20,15 @@ if (loginForm) {
 
             if (result.success) {
                 localStorage.setItem("username", result.username);
+                localStorage.setItem("id", result.id);
                 window.location.href = "/user/user-page";
             } else {
                 const messageContainer = document.querySelector("#message-container");
-                messageContainer.classList.add("error-message")
-                messageContainer.innerHTML = result.message;
+                if (messageContainer) {
+                    messageContainer.classList.add("error-message")
+                    messageContainer.innerHTML = result.message;
+                }
+
             }
         } catch (error) {
             console.log(error)
@@ -37,4 +38,3 @@ if (loginForm) {
     }
 }
 
-console.log(2)

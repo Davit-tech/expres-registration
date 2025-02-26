@@ -6,10 +6,7 @@ if (registerForm) {
         event.preventDefault();
 
         const formData = new FormData(this)
-        const data = {}
-        formData.forEach((value, key) => {
-            data[key] = value;
-        })
+        const data = Object.fromEntries(formData.entries());
 
         try {
             const response = await fetch("/user/register", {
@@ -22,8 +19,11 @@ if (registerForm) {
             const result = await response.json()
 
             if (result.success) {
-                messageContainer.classList.add("success-message")
-                messageContainer.innerHTML = result.message;
+                if (messageContainer) {
+                    messageContainer.classList.add("success-message")
+                    messageContainer.innerHTML = result.message;
+                }
+
 
                 setTimeout(() => {
                     window.location.href = "/user/login";
@@ -31,8 +31,11 @@ if (registerForm) {
                 }, 1000)
 
             } else {
-                messageContainer.classList.add("error-message")
-                messageContainer.innerHTML = result.message;
+                if (messageContainer) {
+                    messageContainer.classList.add("error-message")
+                    messageContainer.innerHTML = result.message;
+                }
+
 
             }
 
